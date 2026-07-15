@@ -1,6 +1,6 @@
 package main
 
-import "github.com/ivanpirog/coloredcobra/example/cmd"
+import "github.com/0magnet/coloredcobra/example/cmd"
 
 func main() {
 	cmd.Execute()

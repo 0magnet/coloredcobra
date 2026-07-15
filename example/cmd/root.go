@@ -6,14 +6,14 @@ import (
 
 	"github.com/spf13/cobra"
 
-	cc "github.com/ivanpirog/coloredcobra"
+	cc "github.com/0magnet/coloredcobra"
 )
 
 var rootCmd = &cobra.Command{
 	Use:   "example",
 	Short: "This is an example of using ColoreCobra library.",
 	Long: "This is just an example of using the ColoredCobra library. \n" +
-		"Project home: https://github.com/ivanpirog/coloredcobra",
+		"Project home: https://github.com/0magnet/coloredcobra",
 	Example: "There is a simple example of the Examples section.\n" +
 		"Just try commands:\n\n" +
 		"example help\n" +

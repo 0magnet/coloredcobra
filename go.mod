@@ -1,4 +1,4 @@
-module github.com/ivanpirog/coloredcobra
+module github.com/0magnet/coloredcobra
 
 go 1.15
 
