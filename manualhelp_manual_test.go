@@ -35,3 +35,23 @@ func TestManualHelpSections(t *testing.T) {
 		}
 	}
 }
+
+func TestManualHelpLayout(t *testing.T) {
+	t.Setenv("NO_COLOR", "1")
+	root := &cobra.Command{Use: "app", Long: "app does things.", Run: func(*cobra.Command, []string) {}}
+	Init(&Config{RootCmd: root, Headings: HiBlue})
+
+	var out, errOut bytes.Buffer
+	root.SetOut(&out)
+	root.SetErr(&errOut)
+	root.SetArgs([]string{"--help"})
+	if err := root.Execute(); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.HasPrefix(out.String(), "app does things.\n\nUsage:\n") {
+		t.Errorf("help on stdout = %q, want the description, a blank line, then Usage", out.String())
+	}
+	if errOut.Len() != 0 {
+		t.Errorf("help wrote to stderr: %q", errOut.String())
+	}
+}

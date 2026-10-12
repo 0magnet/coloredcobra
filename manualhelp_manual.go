@@ -26,13 +26,16 @@ func installManualHelp(cfg *Config) {
 	cfg.RootCmd.SetUsageFunc(func(c *cobra.Command) error {
 		return renderUsage(cfg, c)
 	})
+	// As cobra's help template has it: the description, a blank line, then the
+	// usage, all of it on stdout.
 	cfg.RootCmd.SetHelpFunc(func(c *cobra.Command, _ []string) {
-		if long := strings.TrimSpace(c.Long); long != "" {
-			_, _ = fmt.Fprintln(c.OutOrStdout(), long)
-		} else if short := strings.TrimSpace(c.Short); short != "" {
-			_, _ = fmt.Fprintln(c.OutOrStdout(), short)
+		w := c.OutOrStdout()
+		if text := strings.TrimSpace(c.Long); text != "" {
+			_, _ = fmt.Fprintf(w, "%s\n\n", text)
+		} else if text := strings.TrimSpace(c.Short); text != "" {
+			_, _ = fmt.Fprintf(w, "%s\n\n", text)
 		}
-		_ = c.Usage()
+		_, _ = fmt.Fprint(w, c.UsageString())
 	})
 }
 
